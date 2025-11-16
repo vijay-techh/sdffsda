@@ -72,6 +72,42 @@
     from{opacity:0;transform:translateY(20px);} 
     to{opacity:1;transform:translateY(0);} 
   }
+  /* 📱 Mobile Responsive */
+@media (max-width: 480px) {
+  body {
+    padding: 20px;
+    height: auto;
+    align-items: flex-start;
+  }
+
+  .login {
+    width: 100%;
+    max-width: 360px;
+    padding: 26px;
+    margin-top: 60px;
+    border-radius: 14px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  input, button {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+@media (max-width: 330px) {
+  .login {
+    padding: 22px;
+    max-width: 100%;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+
 </style>
 </head>
 
