@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Customer — Create Order</title>
+
+<style>
+:root {
+  --peacock: #016A70;
+  --peacock-dark: #014d50;
+  --accent: #01949A;
+  --light-bg: #EAFDFC;
+  --text: #033f42;
+  --card-bg: #ffffff;
+}
+
+/* Page */
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: var(--light-bg);
+  padding: 25px;
+  margin: 0;
+  color: var(--text);
+}
+
+/* Card Container */
+.card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 18px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+  border: 1px solid rgba(1, 106, 112, 0.20);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Title */
+h2 {
+  margin: 0 0 4px 0;
+  color: var(--peacock-dark);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+/* Top row */
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Back Button */
+.back {
+  background: var(--peacock);
+  padding: 8px 18px;
+  border-radius: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.back:hover {
+  background: var(--peacock-dark);
+  transform: translateY(-2px);
+}
+
+/* Field Label */
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: 600;
+  color: var(--peacock-dark);
+}
+
+/* Input fields */
+input,
+textarea {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  border: 1px solid #c3dede;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #ffffff;
+  box-sizing: border-box;
+  color: var(--text);
+  transition: all 0.25s ease;
+}
+
+input:hover,
+textarea:hover {
+  border-color: var(--peacock);
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--peacock);
+  box-shadow: 0 0 6px rgba(1, 106, 112, 0.35);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+/* Product pills */
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.product-checkbox {
+  padding: 11px 15px;
+  border: 1px solid #c3dfdf;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--peacock-dark);
+  transition: all 0.25s ease;
+}
+
+.product-checkbox:hover {
+  background: var(--light-bg);
+  border-color: var(--peacock);
+  transform: translateY(-2px);
+}
+
+/* Item Row Box */
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  background: #f8ffff;
+  border: 1px solid #cfeeee;
+  padding: 14px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.item-row:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+/* Input inside item row */
+.item-row input {
+  width: 140px;
+}
+
+/* Buttons */
+button {
+  margin-top: 22px;
+  padding: 13px 22px;
+  background: var(--peacock);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  background: var(--peacock-dark);
+  transform: translateY(-2px);
+}
+
+.secondary {
+  background: #6e7c7e;
+}
+
+.secondary:hover {
+  background: #515d5e;
+}
+
+/* Action Buttons layout */
+.action-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile */
+/* @media (max-width: 720px) {
+  .item-row { flex-direction: column; align-items: stretch; }
+  .top-row  { flex-direction: column; align-items: flex-start; gap: 12px; }
+  button    { width: 100%; }
+} */
+</style>
+
+
+</head>
+<body>
+
+<div class="card">
+
+  <div class="top-row">
+    <h2>New Customer — Create Order</h2>
+    <a class="back" href="home.html">← Back</a>
+  </div>
+
+  <!-- AUTO DATE -->
+  <label>Date (auto)</label>
+  <input id="date" readonly />
+
+  <label>Customer Name *</label>
+  <input id="name" oninput="this.value=this.value.toUpperCase();" />
+
+  <label>Phone Number *</label>
+  <input id="phone" maxlength="10" oninput="validatePhone(this)" />
+
+  <label>Additional Phone</label>
+  <input id="alt_phone" maxlength="10" oninput="validatePhone(this)" />
+
+  <label>Address *</label>
+  <textarea id="address" rows="2" oninput="this.value=this.value.toUpperCase();"></textarea>
+
+  <label>Products (select one or more)</label>
+  <div class="products" id="productsList"></div>
+
+  <div id="itemsContainer"></div>
+
+  <!-- RENT START (AUTO + MANUAL ALLOWED) -->
+  <label>Rent Start (auto but you can edit)</label>
+  <input type="datetime-local" id="rent_start" />
+
+  <div style="display:flex;gap:10px;margin-top:12px">
+    <button onclick="submitForm()">Submit</button>
+    <button onclick="resetForm()" style="background:#666">Reset</button>
+  </div>
+
+</div>
+
+
+<script>
+/* ------------------------------
+   AUTO SET DATE + RENT START
+------------------------------ */
+const dateInput = document.getElementById("date");
+const rentStartInput = document.getElementById("rent_start");
+
+function pad(n){ return n<10 ? "0"+n : n; }
+
+(function setAutoDate() {
+  const now = new Date();
+
+  // For display (YYYY-MM-DD)
+  dateInput.value = now.toISOString().slice(0,10);
+
+  // For datetime-local (YYYY-MM-DDTHH:mm)
+  const formatted = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+  rentStartInput.value = formatted;
+})();
+
+/* ------------------------------
+   VALIDATE PHONE = ONLY 10 DIGITS
+------------------------------ */
+function validatePhone(input){
+  input.value = input.value.replace(/[^0-9]/g, "");
+  if(input.value.length > 10){
+    input.value = input.value.slice(0,10);
+  }
+}
+
+/* ------------------------------
+   PRODUCT LIST
+------------------------------ */
+const PRODUCTS = [
+  "xframe","alige","piller box","wheels",
+  "painting ladder","motor","supportings","machine"
+];
+
+const productsList = document.getElementById("productsList");
+const itemsContainer = document.getElementById("itemsContainer");
+
+// Render checkboxes
+PRODUCTS.forEach(p=>{
+  const div = document.createElement("div");
+  div.className = "product-checkbox";
+  div.innerHTML = `<input type="checkbox" onchange="toggleProduct('${p}')" id="chk_${p}"> <label>${p}</label>`;
+  productsList.appendChild(div);
+});
+
+// Toggle product row
+function toggleProduct(prod){
+  const check = document.getElementById(`chk_${prod}`).checked;
+  if(check){
+    const row = document.createElement("div");
+    row.className="item-row";
+    row.id=`row_${prod}`;
+    row.innerHTML = `
+      <div style="flex:1"><strong>${prod.toUpperCase()}</strong></div>
+      <input placeholder="Price" id="price_${prod}" type="number" min="0" step="0.01">
+      <input placeholder="Quantity" id="qty_${prod}" type="number" min="1" value="1">
+      <button onclick="removeProduct('${prod}')">Remove</button>
+    `;
+    itemsContainer.appendChild(row);
+  } else {
+    removeProduct(prod);
+  }
+}
+
+function removeProduct(prod){
+  document.getElementById(`chk_${prod}`).checked = false;
+  const row = document.getElementById(`row_${prod}`);
+  if(row) row.remove();
+}
+
+/* ------------------------------
+   RESET FORM
+------------------------------ */
+function resetForm(){
+  document.getElementById("name").value="";
+  document.getElementById("phone").value="";
+  document.getElementById("alt_phone").value="";
+  document.getElementById("address").value="";
+  itemsContainer.innerHTML="";
+  PRODUCTS.forEach(p=> document.getElementById(`chk_${p}`).checked=false);
+}
+
+/* ------------------------------
+   SUBMIT FORM
+------------------------------ */
+async function submitForm(){
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const alt_phone = document.getElementById("alt_phone").value.trim();
+  const rent_start = rentStartInput.value;
+
+  if(!name || !phone || !address){
+    alert("Please fill required fields.");
+    return;
+  }
+
+  const items = [];
+  for(const p of PRODUCTS){
+    if(document.getElementById(`chk_${p}`).checked){
+      const price = document.getElementById(`price_${p}`).value;
+      const qty = document.getElementById(`qty_${p}`).value;
+      if(price <= 0 || qty <= 0){
+        alert(`Enter valid price & qty for ${p}`);
+        return;
+      }
+      items.push({ product:p, price, quantity:qty });
+    }
+  }
+
+  if(items.length === 0){
+    alert("Select at least one product.");
+    return;
+  }
+
+  const payload = {
+    name,
+    phone,
+    alt_phone,
+    address,
+    rent_start,
+    items,
+    order_date: dateInput.value
+  };
+
+  const res = await fetch("/api/new-customer", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify(payload)
+  });
+
+  const data = await res.json();
+
+  if(data.success){
+    window.location.href = `customer_details.html?customerId=${data.customerId}`;
+  } else {
+    alert("Error: " + data.error);
+  }
+}
+
+</script>
+
+</body>
+</html>
