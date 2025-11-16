@@ -97,16 +97,32 @@
     padding: 12px;
   }
 }
-@media (max-width: 330px) {
+/* 📱 Mobile Responsive */
+@media (max-width: 480px) {
+  body {
+    padding: 20px;
+    height: auto;
+    align-items: flex-start;
+  }
+
   .login {
-    padding: 22px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 360px;
+    padding: 26px;
+    margin-top: 60px;
+    border-radius: 14px;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 22px;
+  }
+
+  input, button {
+    font-size: 15px;
+    padding: 12px;
   }
 }
+
 
 </style>
 </head>
@@ -139,3 +155,4 @@ async function login() {
 
 </body>
 </html>
+
